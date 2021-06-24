@@ -1,0 +1,22 @@
+version: "3.3"
+services:
+  web:
+    image: registry.gitlab.com/hq-public/hq-sip/apache
+    restart: always
+    ports:
+      - "8000:80"
+    restart: always
+  asterisk:
+    image: registry.gitlab.com/hq-public/hq-sip/asterisk
+    restart: always
+    ports:
+      - "5060:5060"
+      - "8088:8088"
+    volumes:
+      - "./asterisk_config:/config"
+    environment:
+      - PBX_URI=...
+      - PBX_EXT=...
+      - PBX_PASSWORD=...
+      - WEB_EXT=...
+      - WEB_PASSWORD=...
